@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 #la siguiente clase es para el nombre de la pnata y su codigo
-class Planta(models.model):
+class Planta(models.Model):
     codigo= models.CharField(max_length=3, unique=True)
     nombre= models.CharField(max_length=100)
 
@@ -14,7 +14,7 @@ class Planta(models.model):
 class Produto(models.Model):
     codigo= models.CharField(max_length=3, unique=True)
     nombre= models.CharField(max_length=100)
-    planta= models.Forighkey(Planta, on_delete=models.CASCADE)#crea una clave foranea
+    planta= models.ForeignKey(Planta, on_delete=models.CASCADE)#crea una clave foranea
 
     def __str__ (self):
         return self.nombre
@@ -27,12 +27,12 @@ class RegistroProduccion(models.Model):
         ('MM','NOCHE'),
     ]
 
-    codigo_combustible= models.Forighkey(Produto, on_delete=models.CASCADE)
+    codigo_combustible= models.ForeignKey(Produto, on_delete=models.CASCADE)
     litros_producidos= models.FloatField()
     fecha_produccion= models.FloatField()
     turno= models.CharField(max_length=2, choices=TURNOS)
-    hora_registro= models.DataTimeField(auto_now_add=True)
-    operador=models.Forighkey(User, on_delete=models.CASCADE)
+    hora_registro= models.DateTimeField(auto_now_add=True)
+    operador=models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.codigo_combustible}-{self.fecha_produccion}-{self.turno}"
