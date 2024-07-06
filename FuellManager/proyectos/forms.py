@@ -1,10 +1,11 @@
 from django import forms
+from django.forms import ModelForm
 from .models import RegistroProduccion
 
-class RegistroProduccionFrom(forms,ModelFrom):
+class RegistroProduccionForm(ModelForm):
     class Meta:
-        model= RegistroProduccion
-        field= ['codigo_combustible','litros_producidos', 'fecha_procuccion','turno']
-        widgets={
-            'fecha_produccion':froms.DateInput(attrs={'type':'date'}),
+        model = RegistroProduccion
+        fields = ['codigo_combustible', 'litros_producidos', 'fecha_produccion', 'turno'] 
+        widgets = {
+            'fecha_produccion': forms.DateInput(attrs={'type': 'date'}),
         }
