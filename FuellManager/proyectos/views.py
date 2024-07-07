@@ -20,8 +20,14 @@ def exit(request):
 
 @login_required
 def producciones(request):
+    titulo = "Lista de Producciones"
+
     producciones = RegistroProduccion.objects.all()
-    return render(request, 'producciones.html', {'producciones': producciones})
+
+    return render(request, 'producciones.html', {
+        'producciones': producciones,
+        'titulo': titulo,
+        })
 
 #decimos que nesesita registrarse con el @login_required
 @login_required

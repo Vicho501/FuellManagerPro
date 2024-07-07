@@ -79,6 +79,10 @@ body {
 .form-editar {
     color: wheat;
 }   
+.form-titulo{
+    text-transform: uppercase;
+    color: white;
+}
 
 /* HOME */
 .header h1 {

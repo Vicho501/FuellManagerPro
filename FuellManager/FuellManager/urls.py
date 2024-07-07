@@ -20,6 +20,7 @@ from proyectos import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('rest.urls')),
     path('', views.home, name="home"),
     path('logout/', views.exit, name='exit'),
     path('accounts/', include('django.contrib.auth.urls')),
