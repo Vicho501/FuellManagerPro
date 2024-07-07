@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import serializers, viewsets, permissions
+from rest_framework import viewsets, permissions
 from proyectos.models import RegistroProduccion
 from .serializers import ProduccionSerializer
 

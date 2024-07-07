@@ -1,8 +1,10 @@
+import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from .models import RegistroProduccion, Producto
 from .forms import RegistroProduccionForm, EditarProduccionForm
+from django.db.models import Sum
 
 # Create your views here.
 def home(request):
@@ -40,7 +42,8 @@ def registrar_produccion(request):
             registro.operador = request.user
             form.save()
             registro.save()
-            send_slack_notification(registro)
+            total_stored = calcular_total_stored()  # Calcula el total almacenado
+            send_slack_notification(registro, total_stored)
             return redirect('producciones')
     else:
         form = RegistroProduccionForm()
@@ -66,7 +69,7 @@ def eliminar(request, id):
     product.delete()
     return redirect('producciones') 
 
-def send_slack_notification(registro):
+def send_slack_notification(registro, total_stored):
     webhook_url = 'https://hooks.slack.com/services/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'  #Agregamos la URL de webhook de Slack
     message = (
         f"Fecha hora: {registro.hora_registro.strftime('%Y-%m-%d %H:%M:%S')} "
@@ -79,3 +82,16 @@ def send_slack_notification(registro):
     payload = {
         "text": message
     }
+    #PARA QUE FUNCIONE EL REQUEST HAY QUE HACER pip install requests, ademas de inportar la biblioteca (ya lo hice)
+    response = requests.post(webhook_url, json=payload)
+    
+    if response.status_code != 200:
+        raise ValueError(
+            f'Request to Slack returned an error {response.status_code}, the response is:\n{response.text}'
+        )
+
+
+def calcular_total_stored():    
+    total_stored = RegistroProduccion.objects.aggregate(Sum('litros_producidos'))['litros_producidos__sum']
+    
+    return total_stored

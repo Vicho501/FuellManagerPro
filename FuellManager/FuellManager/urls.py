@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from proyectos import views
+from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('registrar_produccion/', views.registrar_produccion, name="registrar_produccion"),
     path('editar_produccion/<id>', views.editar_produccion, name="editar_produccion"),
     path('producciones/eliminar_produccion/<id>/', views.eliminar, name='eliminar_produccion'),
+    path('docs/', include_docs_urls(title='Documentacion API')),
 ]
