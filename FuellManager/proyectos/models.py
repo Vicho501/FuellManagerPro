@@ -29,10 +29,10 @@ class RegistroProduccion(models.Model):
     ]
     codigo_combustible= models.ForeignKey(Producto, on_delete=models.CASCADE)
     litros_producidos= models.FloatField()
-    fecha_produccion= models.FloatField()
+    fecha_produccion= models.DateField()
     turno= models.CharField(max_length=2, choices=TURNOS)
     hora_registro= models.DateTimeField(auto_now_add=True)
     operador=models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.codigo_combustible}-{self.fecha_produccion}-{self.turno}"
+        return f"{self.codigo_combustible} - {self.fecha_produccion} - {self.turno}"

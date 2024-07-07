@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}{{title}}{% endblock %}
+{% load static %}
 
 {% block content %}
-<h2>EL HOME</h2>
+
+<header class="content header">
+    <h1 class="titulo home">Empresa Nacional de Combustibles</h1>
+    <p>"Por un futuro mejor"</p>      
+</header>
+
+{% if request.user.is_authenticated %}
+    <h4 class="footer-text">
+    {{ user.username | upper}}, bienvenido
+    </h4>
+{% endif %}
+
 
 {% endblock %}

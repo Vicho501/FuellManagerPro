@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Listado de Producciones</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Codigo combustible</th>
+                            <th>Litros</th>
+                            <th>Fecha</th>
+                            <th>Turno</th>
+                            <th>Operador</th>
+                            <th colspan="2">OPCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in producciones %}
+                        <tr>
+                            <td>{{ p.codigo_combustible }}</td>
+                            <td>{{ p.litros_producidos }}</td>
+                            <td>{{ p.fecha_produccion }}</td>
+                            <td>{{ p.turno }}</td>
+                            <td>{{ p.operador }}</td>
+                            <td><a href="{% url 'editar_produccion' p.id %}" class="btn btn-info">Editar</a></td>
+                        
+                            <td><a href="{% url 'eliminar_produccion' p.id %}" class="btn btn-danger">Eliminar</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

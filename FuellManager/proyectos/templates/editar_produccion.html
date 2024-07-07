@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-base">
+
+    <h1 class="titulo">Editar Producto</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary btn-lg">Terminar editado</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

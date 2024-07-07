@@ -21,7 +21,10 @@ from proyectos import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
+    path('logout/', views.exit, name='exit'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('producciones/', views.producciones, name="producciones"),
     path('registrar_produccion/', views.registrar_produccion, name="registrar_produccion"),
-    path('editar_produccion/<name>', views.editar_produccion, name="editar_produccion"),
+    path('editar_produccion/<id>', views.editar_produccion, name="editar_produccion"),
+    path('producciones/eliminar_produccion/<id>/', views.eliminar, name='eliminar_produccion'),
 ]

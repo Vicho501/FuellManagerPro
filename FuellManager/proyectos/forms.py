@@ -25,7 +25,8 @@ class EditarProduccionForm(ModelForm):
         fields = ['codigo_combustible', 'litros_producidos', 'fecha_produccion', 'turno', 'operador']
 
     def __init__(self, *args, **kwargs):
-        super(RegistroProduccionForm, self).__init__(*args, **kwargs)
+        super(EditarProduccionForm, self).__init__(*args, **kwargs)
+        self.fields['operador'].disabled = True
         self.fields['codigo_combustible'].queryset = Producto.objects.all()
         self.fields['operador'].queryset = User.objects.all()
 
