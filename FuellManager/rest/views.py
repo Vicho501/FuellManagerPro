@@ -21,4 +21,5 @@ class ProduccionViewSet(viewsets.ModelViewSet):
 
     filterset_fields = {
         
+        
     }
