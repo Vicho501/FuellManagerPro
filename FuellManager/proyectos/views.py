@@ -36,7 +36,11 @@ def registrar_produccion(request):
     if request.method == 'POST':
         form = RegistroProduccionForm(request.POST)
         if form.is_valid():
+            registro = form.save(commit=False)  # Define `registro` correctamente aquí
+            registro.operador = request.user
             form.save()
+            registro.save()
+            send_slack_notification(registro)
             return redirect('producciones')
     else:
         form = RegistroProduccionForm()
@@ -61,3 +65,17 @@ def eliminar(request, id):
     product = get_object_or_404(RegistroProduccion, id=id)
     product.delete()
     return redirect('producciones') 
+
+def send_slack_notification(registro):
+    webhook_url = 'https://hooks.slack.com/services/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'  #Agregamos la URL de webhook de Slack
+    message = (
+        f"Fecha hora: {registro.hora_registro.strftime('%Y-%m-%d %H:%M:%S')} "
+        f"CÓDIGO PLANTA: {registro.codigo_combustible.planta.codigo} – "
+        f"Nuevo Registro de Producción – "
+        f"CÓDIGO COMBUSTIBLE: {registro.codigo_combustible.codigo} "
+        f"{registro.litros_producidos} litros registrados | "
+        f"Total Almacenado: {total_stored} litros"
+    )
+    payload = {
+        "text": message
+    }
