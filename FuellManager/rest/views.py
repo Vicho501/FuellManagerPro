@@ -4,6 +4,7 @@ from proyectos.models import RegistroProduccion, Planta, Producto
 from .serializers import ProduccionSerializer, PlantaSerializer, ProductoSerializer
 from proyectos.models import Planta, Producto, RegistroProduccion
 from django_filters.rest_framework import DjangoFilterBackend
+from proyectos.filters import ProduccionFilter
 
 
 class PlantaViewSet(viewsets.ModelViewSet):
@@ -20,8 +21,4 @@ class ProduccionViewSet(viewsets.ModelViewSet):
     serializer_class = ProduccionSerializer
 
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = {
-        'codigo_combustible__nombre': ['exact'],
-        'codigo_combustible__planta__nombre': ['exact'],
-        'fecha_produccion': ['year', 'month'],
-    }
+    filterset_class = ProduccionFilter
