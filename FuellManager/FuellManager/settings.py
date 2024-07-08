@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'proyectos',
     'coreapi',
     'rest',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
