@@ -7,6 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from proyectos.filters import ProduccionFilter
 from django.db.models import Sum
 from rest_framework.response import Response
+from rest_framework.permissions import DjangoModelPermissions
 
 class PlantaViewSet(viewsets.ModelViewSet):
     queryset = Planta.objects.all()
@@ -18,11 +19,12 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
 class ProduccionViewSet(viewsets.ModelViewSet):
     queryset = RegistroProduccion.objects.all()
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [DjangoModelPermissions]
     serializer_class = ProduccionSerializer
 
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProduccionFilter
+
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -35,4 +37,4 @@ class ProduccionViewSet(viewsets.ModelViewSet):
         data = serializer.data
         data.append({'total_producido': total_producido})
 
-        return Response(data)
+        return Response(data)   

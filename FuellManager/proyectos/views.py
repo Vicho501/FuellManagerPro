@@ -70,7 +70,7 @@ def eliminar(request, id):
     return redirect('producciones') 
 
 def send_slack_notification(registro, total_stored):
-    webhook_url = 'https://hooks.slack.com/services/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'  #Agregamos la URL de webhook de Slack
+    webhook_url = 'https://hooks.slack.com/services/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'  #Agregamos la URL de webhook de Slack
     message = (
         f"Fecha hora: {registro.hora_registro.strftime('%Y-%m-%d %H:%M:%S')} "
         f"CÓDIGO PLANTA: {registro.codigo_combustible.planta.codigo} – "
